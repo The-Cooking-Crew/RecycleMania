@@ -5,49 +5,73 @@ Created on Fri Nov 13 12:10:00 2026
 @author: aidyn
 """
 
-import sys
 import pygame
+import numpy as np
+import random
 
 # 1. Initialize Pygame
 pygame.init()
 
 # 2. Set up the display window dimensions (width, height)
-width, height = 800, 600
+width, height = 800, 450
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption("My Pygame Window in Spyder")
+pygame.display.set_caption("RecycleMania!")
 
 # 3. Set up a clock to control frame rate
 clock = pygame.time.Clock()
-FPS = 60
+FPS = 120
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
+#ball location
+balls = np.array([[0, -50, -100, -150, -200, -250, -300, -350, -400,
+                  -450], [100, 100, 100, 100, 100, 100, 100, 100,
+                  100, 100]])
+# call with balls[0, x]
+
+#possible positions
+posxlist = [100, 300, 500, 700]
 
 #sprite setup/ group
 all_sprites_group = pygame.sprite.Group
 # 4. Game Loop
 running = True
 while running:
-  # Cap the frame rate at 60 FPS
-  clock.tick(FPS)
-  # Event handling
-  for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-      running = False
-  
-  all_sprites.update()
+    # # Event handling
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+    # redraw
+    screen.fill(BLACK)
+    
+    for k in range(len(balls[0])):
+        balls[0, k] += 1
+            
+        if balls[0, k] == -25:
+            balls[1, k] = posxlist[random.randint(0, 3)]
+            # randomly choose from the list of possible positions
+    
+        if balls[0, k] == height + 25:
+            balls[0, k] = -25
+            
+        pygame.draw.rect(screen, WHITE, (balls[1, k], balls[0, k], 20, 20))
+    
+    #(x, y, xsize, ysize)
+    
+    # all_sprites_group.update()
 
-  # Fill the background with a color (e.g., dark gray)
-  screen.fill(BLACK)
+    # # Fill the background with a color (e.g., dark gray)
+    # screen.fill(BLACK)
 
-  # Update the display
-  pygame.display.flip()
+    # # Update the display
+    pygame.display.flip()
+    clock.tick(FPS)
+    
 
 
 
 # 5. Properly quit Pygame and exit
 pygame.quit()
-sys.exit()

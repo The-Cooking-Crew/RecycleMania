@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Nov 13 12:10:00 2026
+
+@author: aidyn
+"""
+
+import sys
+import pygame
+
+# 1. Initialize Pygame
+pygame.init()
+
+# 2. Set up the display window dimensions (width, height)
+width, height = 800, 600
+screen = pygame.display.set_mode((width, height))
+pygame.display.set_caption("My Pygame Window in Spyder")
+
+# 3. Set up a clock to control frame rate
+clock = pygame.time.Clock()
+FPS = 60
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+
+#sprite setup/ group
+all_sprites_group = pygame.sprite.Group
+# 4. Game Loop
+running = True
+while running:
+  # Cap the frame rate at 60 FPS
+  clock.tick(FPS)
+  # Event handling
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      running = False
+  
+  all_sprites.update()
+
+  # Fill the background with a color (e.g., dark gray)
+  screen.fill(BLACK)
+
+  # Update the display
+  pygame.display.flip()
+
+
+
+# 5. Properly quit Pygame and exit
+pygame.quit()
+sys.exit()

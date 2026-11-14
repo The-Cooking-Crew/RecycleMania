@@ -21,6 +21,7 @@ pygame.display.set_caption("RecycleMania!")
 background = pygame.image.load('Menu Screen (Template) (1).png')
 background = pygame.transform.scale(background, (width, height))
 font = pygame.font.SysFont('arialbd.ttf', 42)
+rules_font = pygame.font.SysFont('arialbd.ttf', 60)
 
 menu_options = ['Start', 'Quit']
 index = 0
@@ -69,12 +70,33 @@ def select_option(index, menu_options):
     elif option == 'Quit':
        global running
        running = False
-       
+
+#Rules Screen
+def rules_screen():
+    check = True
+    rules_txt = ['RULES:', 'USE ARROW KEYS FOR NAVIGATION',
+                 'USE D, F, J, K IN GAME',
+                 'PRESS ESC TO RETURN TO MENU',
+                 'Press RETURN to proceed!']
+    for index, text in enumerate(rules_txt):
+        txt_render = rules_font.render(text, True, WHITE)
+        txt_rect = txt_render.get_rect(center =(width//2, 40 + index * 80))
+        # edit distances for better spacing
+        screen.blit(txt_render, txt_rect)
+    pygame.display.flip()
+    while check:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:    
+                    check = False       
        
 #sprite setup/ group
 all_sprites_group = pygame.sprite.Group
 # 4. Game Loop
 running = True
+rules_screen()
 while running:
     # # Event handling
     for event in pygame.event.get():

@@ -131,8 +131,9 @@ def select_option(index, menu_options, game_state, running):
 
 # win & loss function, won is True if won and False if lost
 def eventmenu(won):
-    pygame.mixer.music.stop("7!!.mp3")
+    music_sound.stop()
     if won:
+        music_sound.stop()
         screen.blit(Winscreen,(0,0))
         win_sound.set_volume(0.5)
         win_sound.play(0,5000,0)
@@ -141,6 +142,7 @@ def eventmenu(won):
         loop = True
         
     else:
+        music_sound.stop()
         screen.blit(deathscreen, (0, 0))
         
     pygame.display.flip()
